@@ -33,6 +33,15 @@ class apache::version {
     'Gentoo': {
       $default = '2.4'
     }
+    'Suse': {
+      if $::operatingsystem == 'SLES' and versioncmp($::operatingsystemrelease, '11') >= 0 {
+        $default = '2.2'
+      } elsif $::operatingsystem == 'SLES' and versioncmp($distrelease, '12') >= 0 {
+        $default = '2.4'
+      } else {
+        $default = '2.2'
+      }
+    }
     default: {
       fail("Class['apache::version']: Unsupported osfamily: ${::osfamily}")
     }
